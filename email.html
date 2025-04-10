@@ -162,7 +162,7 @@
                     console.log("Order logged as Pending:", order);
                     const tempRowId = Date.now();
                     customField.value = tempRowId;
-                    returnUrl.value = `http://your_vps_ip/thanks.html?row=${tempRowId}`;
+                    returnUrl.value = `http://CCashout.github.io/thanks.html?row=${tempRowId}`;
                     orders.count++; // Increment on form submission
                     localStorage.setItem('orders', JSON.stringify(orders));
                     paypalForm.submit();
@@ -172,7 +172,7 @@
                     alert("Failed to log order, but proceeding: " + error.message);
                     const tempRowId = Date.now();
                     customField.value = tempRowId;
-                    returnUrl.value = `http://your_vps_ip/thanks.html?row=${tempRowId}`;
+                    returnUrl.value = `http://CCashout.github.io/thanks.html?row=${tempRowId}`;
                     orders.count++;
                     localStorage.setItem('orders', JSON.stringify(orders));
                     paypalForm.submit();
