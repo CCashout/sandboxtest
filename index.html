@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCashout</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- PayPal Sandbox SDK with Client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AazX-YQTuxBwHDAILVitoOoaJGEVXP1GV72d3_vlRRWDasv-70-bW2fywGrCfxznIHSzB9RHlbb6-HS_&currency=USD"></script>
+    <style>
+        body {
+            font-family: "SF Pro Text", -apple-system, Helvetica, Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #1D1D1F;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #D2D2D7;
+        }
+        header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .intro {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .intro p {
+            font-size: 17px;
+            color: #6E6E73;
+            line-height: 1.5;
+        }
+        .intro-buttons {
+            margin-top: 20px;
+        }
+        .intro-buttons a {
+            position: relative;
+            display: inline-block;
+            background-color: #0071E3;
+            color: #FFFFFF;
+            border-radius: 980px;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: 400;
+            text-decoration: none;
+            margin: 0 10px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .intro-buttons a::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 30%;
+            height: 400%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.7),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg);
+        }
+        .intro-buttons a:hover {
+            transform: scale(1.1);
+        }
+        .intro-buttons a:hover::after {
+            animation: shine 2s ease forwards;
+        }
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .item {
+            width: 200px;
+            text-align: center;
+        }
+        .item h2 {
+            position: relative;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 10px 0;
+            padding: 5px 10px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .item h2::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 30%;
+            height: 400%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.7),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg);
+        }
+        .item h2:hover {
+            transform: scale(1.1);
+        }
+        .item h2:hover::after {
+            animation: shine 2s ease forwards;
+        }
+        .item div {
+            position: relative;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #F5F5F7;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #6E6E73;
+            border-top: 1px solid #D2D2D7;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 150%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CCashout</h1>
+    </header>
+    <div class="intro">
+        <p>Choose any item you want to get. If any help is needed Contact us or read the instructions.</p>
+        <div class="intro-buttons">
+            <a href="support.html">Contact Support</a>
+            <a href="howtobuy.html">How to Buy</a>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item">
+            <h2>Item 1 - $20</h2>
+            <div id="paypal-button-20"></div>
+        </div>
+        <div class="item">
+            <h2>Item 2 - $50</h2>
+            <div id="paypal-button-50"></div>
+        </div>
+        <div class="item">
+            <h2>Item 3 - $75</h2>
+            <div id="paypal-button-75"></div>
+        </div>
+        <div class="item">
+            <h2>Item 4 - $100</h2>
+            <div id="paypal-button-100"></div>
+        </div>
+        <div class="item">
+            <h2>Item 5 - $150</h2>
+            <div id="paypal-button-150"></div>
+        </div>
+        <div class="item">
+            <h2>Item 6 - $200</h2>
+            <div id="paypal-button-200"></div>
+        </div>
+        <div class="item">
+            <h2>Item 7 - $250</h2>
+            <div id="paypal-button-250"></div>
+        </div>
+        <div class="item">
+            <h2>Item 8 - $300</h2>
+            <div id="paypal-button-300"></div>
+        </div>
+        <div class="item">
+            <h2>Item 9 - $350</h2>
+            <div id="paypal-button-350"></div>
+        </div>
+        <div class="item">
+            <h2>Item 10 - $400</h2>
+            <div id="paypal-button-400"></div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 CCashout. All rights reserved.</p>
+    </footer>
+    <script>
+        // Order counter in localStorage
+        const today = new Date().toDateString();
+        let orders = JSON.parse(localStorage.getItem('orders') || '{}');
+        if (orders.date !== today) {
+            orders = {date: today, count: 0};
+        }
+        localStorage.setItem('orders', JSON.stringify(orders));
+
+        function updateStatus() {
+            orders = JSON.parse(localStorage.getItem('orders'));
+            return orders.count < 50;
+        }
+
+        // Array of items with amounts
+        const items = [
+            {id: 'paypal-button-20', amount: '20.00'},
+            {id: 'paypal-button-50', amount: '50.00'},
+            {id: 'paypal-button-75', amount: '75.00'},
+            {id: 'paypal-button-100', amount: '100.00'},
+            {id: 'paypal-button-150', amount: '150.00'},
+            {id: 'paypal-button-200', amount: '200.00'},
+            {id: 'paypal-button-250', amount: '250.00'},
+            {id: 'paypal-button-300', amount: '300.00'},
+            {id: 'paypal-button-350', amount: '350.00'},
+            {id: 'paypal-button-400', amount: '400.00'}
+        ];
+
+        // Render PayPal buttons for each item
+        items.forEach(item => {
+            if (updateStatus()) {
+                paypal.Buttons({
+                    createOrder: (data, actions) => {
+                        return actions.order.create({
+                            intent: 'CAPTURE',
+                            purchase_units: [{
+                                amount: {currency_code: 'USD', value: item.amount}
+                            }],
+                            application_context: {user_action: 'PAY_NOW'}
+                        });
+                    },
+                    onApprove: (data, actions) => {
+                        return actions.order.capture().then(details => {
+                            if (details.status === 'COMPLETED') {
+                                orders.count++;
+                                localStorage.setItem('orders', JSON.stringify(orders));
+                                window.location.href = 'thanks.html';
+                            } else {
+                                alert('Payment failed.');
+                            }
+                        });
+                    },
+                    onCancel: () => {
+                        window.location.href = 'cancel.html';
+                    },
+                    onError: (err) => {
+                        alert('Error: ' + err.message);
+                    }
+                }).render(`#${item.id}`);
+            } else {
+                document.getElementById(item.id).innerHTML = 'Daily limit reached.';
+            }
+        });
+    </script>
+</body>
+</html>
