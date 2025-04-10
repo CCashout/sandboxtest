@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thank You</title>
+
+    <style>
+
+        body {
+
+            font-family: "SF Pro Text", -apple-system, Helvetica, Arial, sans-serif;
+
+            background-color: #FFFFFF;
+
+            color: #1D1D1F;
+
+            margin: 0;
+
+            padding: 40px;
+
+            text-align: center;
+
+        }
+
+        h1 {
+
+            font-size: 28px;
+
+            font-weight: 600;
+
+        }
+
+        p {
+
+            font-size: 17px;
+
+            color: #6E6E73;
+
+            line-height: 1.5;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Thank You!</h1>
+
+    <p>Your payment has been processed successfully. You’ll recieve your funds soon.</p>
+
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const rowId = urlParams.get("row");
+
+ 
+
+        if (rowId) {
+
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbwn2nGJ3kmIuHElZpP5hXNkDjv5cagy3MVRzgmd0orl-t8uBEGH0nlT_V74acfNTWm4/exec"; // Replace with your URL
+
+            fetch(scriptUrl, {
+
+                method: "PUT",
+
+                body: JSON.stringify({ rowNumber: rowId }), // Temporary ID until we refine
+
+                headers: { "Content-Type": "application/json" },
+
+                mode: "no-cors"
+
+            })
+
+            .then(() => {
+
+                console.log("Payment status updated to Completed for row:", rowId);
+
+            })
+
+            .catch(error => {
+
+                console.error("Error updating payment status:", error);
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>
