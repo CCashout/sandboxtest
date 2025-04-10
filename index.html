@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCashout</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <!-- PayPal Sandbox SDK with Client ID -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AazX-YQTuxBwHDAILVitoOoaJGEVXP1GV72d3_vlRRWDasv-70-bW2fywGrCfxznIHSzB9RHlbb6-HS_&currency=USD"></script>
     <style>
         body {
             font-family: "SF Pro Text", -apple-system, Helvetica, Arial, sans-serif;
@@ -116,9 +114,43 @@
         .item h2:hover::after {
             animation: shine 2s ease forwards;
         }
-        .item div {
+        .item button {
             position: relative;
-            margin-top: 10px;
+            background-color: #0071E3;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 980px;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: 400;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .item button::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 30%;
+            height: 400%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.7),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg);
+        }
+        .item button:hover {
+            transform: scale(1.1);
+        }
+        .item button:hover::after {
+            animation: shine 2s ease forwards;
+        }
+        .item button:disabled {
+            background-color: #D2D2D7;
+            cursor: not-allowed;
         }
         footer {
             background-color: #F5F5F7;
@@ -147,43 +179,83 @@
     <div class="items">
         <div class="item">
             <h2>Item 1 - $20</h2>
-            <div id="paypal-button-20"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 1">
+                <input type="hidden" name="amount" value="20.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 2 - $50</h2>
-            <div id="paypal-button-50"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 2">
+                <input type="hidden" name="amount" value="50.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 3 - $75</h2>
-            <div id="paypal-button-75"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 3">
+                <input type="hidden" name="amount" value="75.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 4 - $100</h2>
-            <div id="paypal-button-100"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 4">
+                <input type="hidden" name="amount" value="100.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 5 - $150</h2>
-            <div id="paypal-button-150"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 5">
+                <input type="hidden" name="amount" value="150.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 6 - $200</h2>
-            <div id="paypal-button-200"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 6">
+                <input type="hidden" name="amount" value="200.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 7 - $250</h2>
-            <div id="paypal-button-250"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 7">
+                <input type="hidden" name="amount" value="250.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 8 - $300</h2>
-            <div id="paypal-button-300"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 8">
+                <input type="hidden" name="amount" value="300.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 9 - $350</h2>
-            <div id="paypal-button-350"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 9">
+                <input type="hidden" name="amount" value="350.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
         <div class="item">
             <h2>Item 10 - $400</h2>
-            <div id="paypal-button-400"></div>
+            <form action="email.html" method="get">
+                <input type="hidden" name="item_name" value="Item 10">
+                <input type="hidden" name="amount" value="400.00">
+                <button type="submit" class="buy-button">Buy Now</button>
+            </form>
         </div>
     </div>
     <footer>
@@ -198,60 +270,14 @@
         }
         localStorage.setItem('orders', JSON.stringify(orders));
 
-        function updateStatus() {
-            orders = JSON.parse(localStorage.getItem('orders'));
-            return orders.count < 50;
+        // Check limit and disable buttons if needed
+        const buttons = document.querySelectorAll('.buy-button');
+        if (orders.count >= 50) {
+            buttons.forEach(button => {
+                button.disabled = true;
+                button.textContent = "Limit Reached";
+            });
         }
-
-        // Array of items with amounts
-        const items = [
-            {id: 'paypal-button-20', amount: '20.00'},
-            {id: 'paypal-button-50', amount: '50.00'},
-            {id: 'paypal-button-75', amount: '75.00'},
-            {id: 'paypal-button-100', amount: '100.00'},
-            {id: 'paypal-button-150', amount: '150.00'},
-            {id: 'paypal-button-200', amount: '200.00'},
-            {id: 'paypal-button-250', amount: '250.00'},
-            {id: 'paypal-button-300', amount: '300.00'},
-            {id: 'paypal-button-350', amount: '350.00'},
-            {id: 'paypal-button-400', amount: '400.00'}
-        ];
-
-        // Render PayPal buttons for each item
-        items.forEach(item => {
-            if (updateStatus()) {
-                paypal.Buttons({
-                    createOrder: (data, actions) => {
-                        return actions.order.create({
-                            intent: 'CAPTURE',
-                            purchase_units: [{
-                                amount: {currency_code: 'USD', value: item.amount}
-                            }],
-                            application_context: {user_action: 'PAY_NOW'}
-                        });
-                    },
-                    onApprove: (data, actions) => {
-                        return actions.order.capture().then(details => {
-                            if (details.status === 'COMPLETED') {
-                                orders.count++;
-                                localStorage.setItem('orders', JSON.stringify(orders));
-                                window.location.href = 'thanks.html';
-                            } else {
-                                alert('Payment failed.');
-                            }
-                        });
-                    },
-                    onCancel: () => {
-                        window.location.href = 'cancel.html';
-                    },
-                    onError: (err) => {
-                        alert('Error: ' + err.message);
-                    }
-                }).render(`#${item.id}`);
-            } else {
-                document.getElementById(item.id).innerHTML = 'Daily limit reached.';
-            }
-        });
     </script>
 </body>
 </html>
