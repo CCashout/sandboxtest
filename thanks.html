@@ -99,3 +99,10 @@
 </body>
 
 </html>
+<script>
+    if (window.location.search.includes("tx=")) {
+        // Payment completed—stay here
+    } else if (window.location.href.includes("completed")) {
+        window.location.href = "http://ccashout.github.io/thanks.html";
+    }
+</script>
